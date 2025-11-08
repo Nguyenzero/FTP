@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="client.ClientController"
+            prefWidth="650" prefHeight="420"
+            style="-fx-background-color: linear-gradient(to bottom right, #f4f7fa, #dfe9f3);">
+
+    <!-- Thanh trên -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10"
+              style="-fx-background-color: #2b5797;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="Server IP:"
+                   style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+            <TextField fx:id="txtServerIP"
+                       promptText="Nhập địa chỉ IPv4 server..."
+                       prefWidth="220"
+                       style="-fx-background-radius: 6; -fx-font-size: 13px;"/>
+            <Button text="Kết nối"
+                    onAction="#connectServer"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-size: 13px;"/>
+        </HBox>
+    </top>
+
+    <!-- Phần trung tâm -->
+    <center>
+        <VBox spacing="8">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="📁 Danh sách tệp tin trên Server:"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            <ListView fx:id="listFiles"
+                      prefHeight="270"
+                      style="-fx-background-radius: 8; -fx-border-color: #ccc;"/>
+        </VBox>
+    </center>
+
+    <!-- Thanh dưới -->
+    <bottom>
+        <VBox spacing="6" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="⬆️ Tải lên" onAction="#uploadFile"
+                        style="-fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 13px;"/>
+                <Button text="⬇️ Tải xuống" onAction="#downloadFile"
+                        style="-fx-background-color: #ff9800; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 13px;"/>
+                <Button text="🔄 Làm mới" onAction="#refreshFileList"
+                        style="-fx-background-color: #009688; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 13px;"/>
+            </HBox>
+
+            <Label fx:id="lblStatus"
+                   text="Trạng thái: Chưa kết nối"
+                   style="-fx-font-size: 12px; -fx-text-fill: #333;"/>
+        </VBox>
+    </bottom>
+</BorderPane>
