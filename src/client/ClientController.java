@@ -78,18 +78,31 @@ public class ClientController {
 
             String reply = dis.readUTF();
             if (reply.equals("FILE_FOUND")) {
+
                 long fileSize = dis.readLong();
-                FileOutputStream fos = new FileOutputStream("client_" + fileName);
+
+                // ✅ Lấy thư mục Downloads của Windows
+                String userHome = System.getProperty("user.home");
+                File downloadDir = new File(userHome, "Downloads");
+                if (!downloadDir.exists()) {
+                    downloadDir.mkdirs();
+                }
+
+                // ✅ File sẽ lưu vào Downloads
+                File saveFile = new File(downloadDir, fileName);
+                FileOutputStream fos = new FileOutputStream(saveFile);
 
                 byte[] buffer = new byte[4096];
                 int read;
                 long totalRead = 0;
+
                 while (totalRead < fileSize && (read = dis.read(buffer)) != -1) {
                     fos.write(buffer, 0, read);
                     totalRead += read;
                 }
                 fos.close();
-                lblStatus.setText("⬇️ Tải xong file: " + fileName);
+
+                lblStatus.setText("✅ File đã tải về thư mục Downloads: " + saveFile.getAbsolutePath());
             } else {
                 lblStatus.setText("❌ File không tồn tại trên server.");
             }
@@ -99,6 +112,7 @@ public class ClientController {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void refreshFileList() {
